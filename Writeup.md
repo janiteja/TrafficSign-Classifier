@@ -32,7 +32,7 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 ## Writeup / README
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-Here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+Here is a link to my [project code](https://github.com/janiteja/TrafficSign-Classifier/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
@@ -63,7 +63,10 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 ##### Code in cell 10
 
-I read that grayscale images perform well in classification in LeNet5 paper. So I Converted images to grayscale. [Reference](http://stackoverflow.com/questions/12201577/how-can-i-convert-an-rgb-image-into-grayscale-in-python)
+I first started my training with color images and obtained test accuracies between 85 to 90%. Then I converted images to grayscale to see if it helps. Moreover, I read that grayscale images perform well on digits classification in LeNet5 paper. [Reference](http://stackoverflow.com/questions/12201577/how-can-i-convert-an-rgb-image-into-grayscale-in-python)
+For digits classification, color is not so important because they can be identified independent of color. For traffic sign classification, the network might also learn to classify independent of color because we have few colors such as red, blue and yellow. After experimentation I noticed that the network's performance improved 4 to 5 percent with gray images.
+
+Labels are encoded to one-hot format using tensorflow 'onehot' function. Defined in cell 16. 
 
 I knew that mean normalization will improve the contrast and it can help the network to generalize better. So I applied mean normalization. But I later noticed that the network could not learn much with mean normalized data. So I proceeded with gray images for training. <br />
 
@@ -164,7 +167,7 @@ Here are five German traffic signs that I found on the web:
 
 ![alt text](./examples/1.jpg) ![alt text](./examples/2.jpg) ![alt text](./examples/3.jpg) ![alt text](./examples/4.jpg) ![alt text](./examples/5.jpg)
 
-I found the images from google. All images are clear and captured at different angles. So I thought network could easily classify them. But the network failed to classify on all images except the last one.
+I found the images from google. Figure 1 and 4 have additional sign borads below the actual sign which might confuse the network. Figure 3 has shadow on top of the sign board. It is not much for a human but if the network has not trained with such images, it is difficult to classify. Figure 2 has a stop sign which is not round shaped. Most of the  stop sign images I saw from the dataset are round. So this might be easily misclassified by the network. Figure 4 sign is inclined a bit towards right. Figure 5 is very clear in lighting and captured at good angle. As expected, the network failed to classify on all images except the last one.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
